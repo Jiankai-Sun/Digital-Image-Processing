@@ -1,59 +1,40 @@
-%Laplacian, Second-Derivative
-clear;clc;close all;
-f = imread('../fig/skeleton_orig.tif');
-figure('Name', 'Original Image')
-imshow(f, []);
+clc;clear;close all
 
-I=im2double(f);
-[m,n,c]=size(I);
-A1=zeros(m,n,c);
-A2=zeros(m,n,c);
-A3=zeros(m,n,c);
-A4=zeros(m,n,c);
-%g(x,y)=[f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)]-4f(x,y)
-for i=2:m-1
-    for j=2:n-1
-        A1(i,j,1)=I(i+1,j,1)+I(i-1,j,1)+I(i,j+1,1)+I(i,j-1,1)-4*I(i,j,1);
-    end
-end
-result1=I-A1;
-figure('Name', 'Laplacian')
-imshow(A1, []);
-figure('Name', 'After Laplacian')
-imshow(result1, []);
+f1 = imread('../fig/skeleton_orig.tif');
+%% Laplacian
+Laplace1 = [0 -1 0; -1 4 -1; 0 -1 0];
+LaplaceImage = conv2(f1, Laplace1, 'same');
+figure('Name', 'Laplacian 1');
+imshow(uint8(LaplaceImage), []);
+% Add the Laplacian Image and original image
+DataLap = imadd(double(f1), immultiply(LaplaceImage,1));
+figure('Name', 'Laplacian 1 Enhanced');
+imshow(uint8(DataLap), []);
 
-%g(x,y)=[f(x-1,y-1)+f(x,y+1)+f(x+1,y+1)+f(x-1,y)+f(x+1,y)+f(x-1,y-1)+f(x,y-1)+f(x+1,y-1)]-8f(x,y)
-for i=2:m-1
-    for j=2:n-1
-        A2(i,j,1)=I(i-1,j-1,1)+I(i,j+1,1)+I(i+1,j+1,1)+I(i-1,j,1)+I(i+1,j,1)+I(i-1,j-1,1)+I(i,j-1,1)+I(i+1,j-1,1)-8*I(i,j,1);
-    end
-end
-result2=I-A2;
-figure('Name', 'Laplacian')
-imshow(A2, []);
-figure('Name', 'After Laplacian')
-imshow(result2, []);
+Laplace2 = [1 1 1; 1 -8 1; 1 1 1];
+LaplaceImage = conv2(f1, Laplace2, 'same');
+figure('Name', 'Laplacian 2');
+imshow(uint8(LaplaceImage), []);
+% Add the Laplacian Image and original image
+DataLap = imadd(double(f1), immultiply(LaplaceImage,1));
+figure('Name', 'Laplacian 2 Enhanced');
+imshow(uint8(DataLap), []);
 
-%g(x,y)=-[f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)]+4f(x,y)
-for i=2:m-1
-    for j=2:n-1
-        A3(i,j,1)=-(I(i+1,j,1)+I(i-1,j,1)+I(i,j+1,1)+I(i,j-1,1)-4*I(i,j,1));
-    end
-end
-result3=I-A3;
-figure('Name', 'Laplacian')
-imshow(A3, []);
-figure('Name', 'After Laplacian')
-imshow(result3, []);
+Laplace3 = [0 -1 0; -1 4 -1; 0 -1 0];
+LaplaceImage = conv2(f1, Laplace3, 'same');
+figure('Name', 'Laplacian 3');
+imshow(uint8(LaplaceImage), []);
+% Add the Laplacian Image and original image
+DataLap = imadd(double(f1), immultiply(LaplaceImage,1));
+figure('Name', 'Laplacian 3 Enhanced');
+imshow(uint8(DataLap), []);
 
-%g(x,y)=-([f(x-1,y-1)+f(x,y+1)+f(x+1,y+1)+f(x-1,y)+f(x+1,y)+f(x-1,y-1)+f(x,y-1)+f(x+1,y-1)]-8f(x,y))
-for i=2:m-1
-    for j=2:n-1
-        A4(i,j,1)=-(I(i-1,j-1,1)+I(i,j+1,1)+I(i+1,j+1,1)+I(i-1,j,1)+I(i+1,j,1)+I(i-1,j-1,1)+I(i,j-1,1)+I(i+1,j-1,1)-8*I(i,j,1));
-    end
-end
-result4=I-A4;
-figure('Name', 'Laplacian')
-imshow(A4, []);
-figure('Name', 'After Laplacian')
-imshow(result4, []);
+Laplace4 = [-1 -1 -1; -1 8 -1; -1 -1 -1];
+LaplaceImage = conv2(f1, Laplace4, 'same');
+figure('Name', 'Laplacian 4');
+imshow(uint8(LaplaceImage), []);
+% Add the Laplacian Image and original image
+DataLap = imadd(double(f1), immultiply(LaplaceImage,1));
+figure('Name', 'Laplacian 4 Enhanced');
+imshow(uint8(DataLap), []);
+
